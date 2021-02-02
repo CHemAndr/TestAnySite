@@ -1,5 +1,6 @@
 package home.tests;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +23,10 @@ public class PageEducation {
     @FindBy(xpath = "//span[text()='Education']")
     private WebElement h1Education;
 
+    //Групповой элемент ссылок в группе Subjects
+    @FindBy(xpath = "//div[@class='side-panel']/child::ul")
+    private WebElement groupSubjectsUl;
+
 
     //Методы работы с элементами страницы
     public String getNameEducation() {
@@ -32,11 +37,15 @@ public class PageEducation {
 
     //Количество ссылок в группе Subjects
     public int getNumRefSubjects(){
-        return 0;
+        return groupSubjectsUl.findElements(By.tagName("li")).size();
     }
 
     //Получить имя ссылки в группе Subjects
     public  String getNameRefSubjects(int i){
-        return "";
+        WebElement ulli = groupSubjectsUl.findElements(By.tagName("li")).get(i);
+        //String nameRef = ulli.findElement(By.xpath(".//a")).getAttribute("innerHTML");
+        String nameRef = ulli.findElement(By.xpath(".//a")).getText();
+        return nameRef.trim();
+
     }
 }

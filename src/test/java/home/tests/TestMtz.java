@@ -30,7 +30,21 @@ public class TestMtz {
     public static  String poisk = "Java";
 
     public static int numRefEducation = 13;
-    public static String[] nameRefEducation = {};
+    public static String[] nameRefEducation = {
+            "Information & Library Science",
+            "Education & Public Policy",
+            "K-12 General",
+            "Higher Education General",
+            "Vocational Technology",
+            "Conflict Resolution & Mediation (School settings)",
+            "Curriculum Tools- General",
+            "Special Educational Needs",
+            "Theory of Education",
+            "Education Special Topics",
+            "Educational Research & Statistics",
+            "Literacy & Reading",
+            "Classroom Management"
+    };
 
 
 
@@ -55,6 +69,8 @@ public class TestMtz {
 
     @Test
     public void test1(){
+      System.out.println("");
+      System.out.println("test1");
       pageMain.clkBtnNo();
       pageMain.clkWhoWeServ();
       // Сколько элементов в подменю
@@ -71,12 +87,17 @@ public class TestMtz {
 
     @Test
     public void test2(){
+      System.out.println("");
+      System.out.println("test2");
       pageMain.inFindString(poisk);
       Assertions.assertTrue(pageMain.paramAreas());
+      System.out.println("ОК");
     }
 
     @Test
     public void test3(){
+      System.out.println("");
+      System.out.println("test3");
       pageMain.clickFindBtn();
       //Заданное количество продуктов на странице
       int numProdAdjust = pageProducts.numProdOnPage();
@@ -96,6 +117,8 @@ public class TestMtz {
 
     @Test
     public void test4(){
+        System.out.println("");
+        System.out.println("test4");
         //Выбрать Subjects->Education
         pageProducts.clkEducation();
         //Заголовок - Education
@@ -104,7 +127,7 @@ public class TestMtz {
         // Сколько ссылок в Subjects
         int num =  pageEducation.getNumRefSubjects();
         Assertions.assertEquals(numRefEducation,num );
-        System.out.println(num);
+        System.out.println("Количество ссылок: " + num);
         // Названия элементов меню
         for (int i=0; i<num; i++) {
             String title = pageEducation.getNameRefSubjects(i);

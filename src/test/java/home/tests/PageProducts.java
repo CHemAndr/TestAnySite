@@ -75,7 +75,7 @@ public class PageProducts {
 
         int numContents = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).size();
         int numTabs = prodTabListUl.findElements(By.tagName("li")).size(); //Количество вкладок
-        System.out.println("Продукт "+ i +" :   количество вкладок: "+ numTabs+"  количество контентов:" +numContents);
+        System.out.println("Продукт: "+ "    количество вкладок: "+ numTabs+"  количество контентов:" +numContents);
 
         if (numTabs == numContents) {
             for (int j = 0; j < numTabs; j++) {
