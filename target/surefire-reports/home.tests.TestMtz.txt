@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: home.tests.TestMtz
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.016 sec <<< FAILURE!
+home.tests.TestMtz.test2()  Time elapsed: 0.016 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at home.tests.TestMtz.test2(TestMtz.java:69)
+
+home.tests.TestMtz.test3()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at home.tests.TestMtz.test3(TestMtz.java:75)
+
+home.tests.TestMtz.test1()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at home.tests.TestMtz.test1(TestMtz.java:53)
+
+home.tests.TestMtz.test4()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at home.tests.TestMtz.test4(TestMtz.java:95)
+
