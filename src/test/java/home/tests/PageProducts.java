@@ -41,37 +41,35 @@ public class PageProducts {
     @FindBy(xpath = "//a[text()='\n" +
             "            Education\n" +
             "        ']")
-    private  WebElement menuEducation;
+    private WebElement menuEducation;
 
     //Методы работы с элементами страницы
 
     //Количество тегов section в групповом элементе (включая вложеннные)
-    public int numProdTags() {
+    public int getProductTagsCount() {
         return (prodList.findElements(By.tagName("section")).size());
     }
 
     //Заданное количество продуктов на странице
-    public int numProdOnPage(){
+    public int getCountOfProductsOnPage(){
         return Integer.parseInt(prodOnPage.getText());
     }
 
     //Заданное имя в заголовке продукта
-    public  String nameInProdTitle(int i) {
+    public String getNameInProductTitle(int i) {
         WebElement elem = prodList.findElements(By.tagName("section")).get(i);
         String st = elem.findElement(By.xpath(".//h3/a/span")).getText();
-        //System.out.println("st="+st);
         return st.trim();
     }
 
-    // Соответствие названия вкладки и наличия кнопки на ней
-    public boolean tabNameAndButton(int i){
-
+    // Соответствие названия вкладки и наличия кнопки на ней для продукта
+    public boolean checkTabsAndButtonsForProduct(int i){
         WebElement prodElem = prodList.findElements(By.tagName("section")).get(i);
         WebElement prodContainer = prodElem.findElement(By.xpath(".//section[@id='productTableBodySection']"));
-        WebElement prodTabpanel = prodContainer.findElement(By.xpath(".//div[@id='eBundlePlpTabMainTabPanel']"));
+        WebElement prodTabPanel = prodContainer.findElement(By.xpath(".//div[@id='eBundlePlpTabMainTabPanel']"));
 
-        WebElement prodTabListUl = prodTabpanel.findElement(By.xpath(".//ul[@id='eBundlePlpTab']"));
-        WebElement prodTabContentListDiv = prodTabpanel.findElement(By.xpath(".//div[@id='tabContentStyle']"));
+        WebElement prodTabListUl = prodTabPanel.findElement(By.xpath(".//ul[@id='eBundlePlpTab']"));
+        WebElement prodTabContentListDiv = prodTabPanel.findElement(By.xpath(".//div[@id='tabContentStyle']"));
 
         int numContents = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).size();
         int numTabs = prodTabListUl.findElements(By.tagName("li")).size(); //Количество вкладок
@@ -79,54 +77,65 @@ public class PageProducts {
 
         if (numTabs == numContents) {
             for (int j = 0; j < numTabs; j++) {
-                int    Nbtn = 0; // Количество кнопок
-                String nameBtn = ""; // Имя кнопки
+                int buttonsCount = 0; // Количество кнопок
+                String buttonName = ""; // Имя кнопки
                 //Имя вкладки
                 String tagName = prodTabListUl.findElements(By.tagName("li")).get(j).
                                  findElement(By.xpath(".//a/div")).getText();
                 //Есть ли кнопка на вкладках E-BOOK и PRINT
                 if (tagName.trim().equals("E-BOOK")  || tagName.trim().equals("PRINT") ) {
-                    List NumBtn = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
+                    List buttonsInTab = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
                             findElements(By.xpath(".//form/Button"));
-                    Nbtn = NumBtn.size();
+                    buttonsCount = buttonsInTab.size();
                     //Есть кнопка
-                    if (Nbtn > 0 ) {
+                    if (buttonsCount > 0) {
                         //Имя кнопки
-                        nameBtn = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
+                        buttonName = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
                                 findElement(By.xpath(".//form/button")).getAttribute("innerHTML");
-                        if (!nameBtn.trim().equals("Add to cart")) {return false;}
+                        if (!buttonName.trim().equals("Add to cart")) {
+                            return false;
+                        }
                     }
                     //Нет кнопки
-                    if (Nbtn == 0) {
+                    if (buttonsCount == 0) {
                         //Когда нет товара в наличии
-                        nameBtn = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
+                        buttonName = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
                                   findElement(By.xpath(".//div[@class='product-button']/span")).
                                   getAttribute("innerHTML");
-                        if (!nameBtn.trim().equals("Product not available<br> for purchase")) {return false;}
+                        if (!buttonName.trim().equals("Product not available<br> for purchase")) {
+                            return false;
+                        }
                     }
                 }
                 //Есть ли кнопка на вкладкем O-BOOK
                 if (tagName.trim().equals("O-BOOK") ){
-                    List NumBtn = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
+                    List buttonsInTab = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
                             findElements(By.xpath(".//div[@class='product-button']/a"));
-                    Nbtn = NumBtn.size();
-                    if (Nbtn > 0 ) {
-                        nameBtn = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
+                    buttonsCount = buttonsInTab.size();
+                    if (buttonsCount > 0) {
+                        buttonName = prodTabContentListDiv.findElements(By.xpath(".//div[@role='tabpanel']")).get(j).
                                 findElement(By.xpath(".//div[@class='product-button']/a")).getAttribute("innerHTML");
-                        if (!nameBtn.trim().equals("View on Wiley Online Library")) {return false;}
+                        if (!buttonName.trim().equals("View on Wiley Online Library")) {
+                            return false;
+                        }
                     }
-                    if (Nbtn == 0) {nameBtn = "Нет кнопки";}
+                    if (buttonsCount == 0) {
+                        buttonName = "Нет кнопки";
+                    }
                 }
-                System.out.println("Имя вкладки: " + tagName+ " Кол-во кнопок на вкладке: "+ Nbtn +
-                                   " Имя кнопки: " + nameBtn.trim());
+                System.out.println("Имя вкладки: " + tagName+ " Кол-во кнопок на вкладке: "+ buttonsCount +
+                                   " Имя кнопки: " + buttonName.trim());
 
             }
-        } else return false;
+        } else {
+            return false;
+        }
 
         return true;
     }
+
     //Перейти по меню Subjects->Education
-    public void clkEducation() {
+    public void clickEducation() {
         Actions action = new Actions(driver);
         action.moveToElement(menuSubjects).build().perform();
         (new WebDriverWait(driver,10))

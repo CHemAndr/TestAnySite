@@ -23,16 +23,19 @@ public class PageEducation {
     @FindBy(xpath = "//span[text()='Education']")
     private WebElement h1Education;
 
+    //Блок Subjects
+    @FindBy (xpath = "//div[@class = \"category-landing-page\"]/div[4]/div")
+    private WebElement blockSubject;
+
     //Групповой элемент ссылок в группе Subjects
     @FindBy(xpath = "//div[@class='side-panel']/child::ul")
     private WebElement groupSubjectsUl;
 
-
     //Методы работы с элементами страницы
     public String getNameEducation() {
-        String nамеEd = h1Education.getText();
-        System.out.println(nамеEd);
-        return nамеEd.trim();
+        String nаmеEd = h1Education.getText();
+        System.out.println(nаmеEd);
+        return nаmеEd.trim();
     }
 
     //Количество ссылок в группе Subjects
@@ -43,9 +46,10 @@ public class PageEducation {
     //Получить имя ссылки в группе Subjects
     public  String getNameRefSubjects(int i){
         WebElement ulli = groupSubjectsUl.findElements(By.tagName("li")).get(i);
-        //String nameRef = ulli.findElement(By.xpath(".//a")).getAttribute("innerHTML");
         String nameRef = ulli.findElement(By.xpath(".//a")).getText();
         return nameRef.trim();
-
     }
+
+    //Параметры расположения блока Subject
+    //public String
 }

@@ -6,21 +6,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PageMain {
 
-    public String[] submemu;
     public WebDriver driver;
 
     //Конструктор обращается к классу PageFactory, чтобы заработала аннотация @FindBy
     //Он инициализирует элементы страницы
-      public PageMain(WebDriver driver){
-         PageFactory.initElements(driver, this);
-         this.driver = driver;
-      }
-
+    public PageMain(WebDriver driver){
+       PageFactory.initElements(driver, this);
+       this.driver = driver;
+    }
 
     // Элементы страницы
 
@@ -38,8 +35,7 @@ public class PageMain {
 
     //Строка поиска
     @FindBy(xpath = "//*[@id=\"js-site-search-input\"]")
-    private WebElement stFind;
-
+    private WebElement searchString;
 
     //Область со строкой ввода Input
     @FindBy(xpath = "//*[@id=\"main-header-container\"]/div/div[2]/div/form/div")
@@ -51,8 +47,7 @@ public class PageMain {
 
     //Кнопка поиск
     @FindBy (xpath = "//*[@id=\"main-header-container\"]/div/div[2]/div/form/div/span/button")
-    private  WebElement findBtn;
-
+    private WebElement findBtn;
 
    //Методы работы с элементами страницы
 
@@ -63,25 +58,25 @@ public class PageMain {
     public void clkWhoWeServ() {whoWeServ.click();}
 
     //Получть количество пунктов подменю (включая вложенные)
-    public int numSubMenu(){
+    public int getSubMenuElementsCounts(){
         return (ulTagList.findElements(By.tagName("li")).size());
     }
 
     //Получить имена пунктов подменю (включая вложенные)
-    public String getSubMenu(int i) {
+    public String getSubMenuElementName(int i) {
         WebElement ulli = ulTagList.findElements(By.tagName("li")).get(i);
         String st = ulli.findElement(By.xpath(".//a")).getAttribute("innerHTML");
         return st.trim();
     }
 
     // Ввести текст в строку поиска
-    public void inFindString(String string) {
-        stFind.click();
-        stFind.sendKeys(string);
+    public void inputSearchString(String string) {
+        searchString.click();
+        searchString.sendKeys(string);
     }
 
-    // Получение и сравнение параметров областей
-    public boolean paramAreas(){
+    // Получение и сравнение параметров области с релевантными значениями
+    public boolean checkSearchAreaLocation(){
         int yi = areaOfInput.getLocation().y; //Координата Y области со строкой ввода
         int hi = areaOfInput.getRect().getDimension().height; //Высота области со строкой ввода
         String pi = areaOfInput.getCssValue("padding"); // Padding области со строкой ввода (String)

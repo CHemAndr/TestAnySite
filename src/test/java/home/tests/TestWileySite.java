@@ -1,36 +1,29 @@
 package home.tests;
 
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
 
-public class TestMtz {
-
+public class TestWileySite {
 
     public static PageMain pageMain;
     public static PageProducts pageProducts;
     public static PageEducation pageEducation;
     public static WebDriver driver;
 
-    public static  int numSubMenuWws = 12;
-    public static  String[] smenuElWws = {
+    public static int subMenuWwsElementsCount = 12;
+    public static String[] subMenuWwsElements = {
       "Students", "Textbook Rental","Instructors", "Book Authors", "Professionals",
       "Researchers", "Institutions", "Librarians", "Corporations",
       "Societies", "Journal Editors", "Bookstores", "Government"
     };
-    public static  String poisk = "Java";
-
-    public static int numRefEducation = 13;
-    public static String[] nameRefEducation = {
+    public static String searchInputCriteria = "Java";
+    public static int referencesInEducationBlockCount = 13;
+    public static String[] referencesInEducationBlock = {
             "Information & Library Science",
             "Education & Public Policy",
             "K-12 General",
@@ -45,8 +38,6 @@ public class TestMtz {
             "Literacy & Reading",
             "Classroom Management"
     };
-
-
 
     @BeforeAll
      static void setup(){
@@ -70,76 +61,77 @@ public class TestMtz {
     @Test
     public void test1(){
       System.out.println("");
-      System.out.println("test1");
+      System.out.println("test1 started");
       pageMain.clkBtnNo();
       pageMain.clkWhoWeServ();
-      // Сколько элементов в подменю
-      int num =  pageMain.numSubMenu();
-      Assertions.assertEquals(numSubMenuWws,num - 1);
-      System.out.println(num-1);
-      // Названия элементов меню
+      // Сколько элементов в подменю 1 уровня (за вычетом вложенных)
+      int num = pageMain.getSubMenuElementsCounts() - 1;
+      Assertions.assertEquals(subMenuWwsElementsCount,num);
+      System.out.println("Количество элементов 1 уровня: " + num);
+      // Названия элементов меню 1 уровня
       for (int i=0; i<num; i++) {
-          String title = pageMain.getSubMenu(i);
-          Assertions.assertEquals(smenuElWws[i],title);
+          String title = pageMain.getSubMenuElementName(i);
+          Assertions.assertEquals(subMenuWwsElements[i],title);
           System.out.println(title);
       }
+      System.out.println("test1 finished");
     }
 
     @Test
     public void test2(){
       System.out.println("");
-      System.out.println("test2");
-      pageMain.inFindString(poisk);
-      Assertions.assertTrue(pageMain.paramAreas());
+      System.out.println("test2 started");
+      pageMain.inputSearchString(searchInputCriteria);
+      Assertions.assertTrue(pageMain.checkSearchAreaLocation());
       System.out.println("ОК");
+      System.out.println("test2 finished");
     }
 
     @Test
     public void test3(){
       System.out.println("");
-      System.out.println("test3");
+      System.out.println("test3 started" );
       pageMain.clickFindBtn();
       //Заданное количество продуктов на странице
-      int numProdAdjust = pageProducts.numProdOnPage();
+      int numProdAdjust = pageProducts.getCountOfProductsOnPage();
       //Общее количество тегов section в групповом элементе
-      int numTags = pageProducts.numProdTags();
+      int numTags = pageProducts.getProductTagsCount();
       //Фактическое количество продуктов на странице равно заданному.
       Assertions.assertEquals(numProdAdjust,numTags - numProdAdjust);
       // Все заголовки продуктов на странице включают строку поиска
       for (int i = 0; i < numTags; i+= 2){
-          Assertions.assertEquals(poisk,pageProducts.nameInProdTitle(i));
+          Assertions.assertEquals(searchInputCriteria,pageProducts.getNameInProductTitle(i));
       }
       // Соответствие наименования вкладки и кнопки
-        for (int i = 0; i< numTags; i+= 2) {
-            Assertions.assertTrue(pageProducts.tabNameAndButton(i));
-        }
+      for (int i = 0; i< numTags; i+= 2) {
+          Assertions.assertTrue(pageProducts.checkTabsAndButtonsForProduct(i));
+      }
+      System.out.println("test3 finished");
     }
 
     @Test
     public void test4(){
         System.out.println("");
-        System.out.println("test4");
+        System.out.println("test4 started");
         //Выбрать Subjects->Education
-        pageProducts.clkEducation();
+        pageProducts.clickEducation();
         //Заголовок - Education
         Assertions.assertEquals("Education",pageEducation.getNameEducation());
-
         // Сколько ссылок в Subjects
         int num =  pageEducation.getNumRefSubjects();
-        Assertions.assertEquals(numRefEducation,num );
+        Assertions.assertEquals(referencesInEducationBlockCount,num );
         System.out.println("Количество ссылок: " + num);
         // Названия элементов меню
         for (int i=0; i<num; i++) {
             String title = pageEducation.getNameRefSubjects(i);
-            Assertions.assertEquals(nameRefEducation[i], title);
+            Assertions.assertEquals(referencesInEducationBlock[i], title);
             System.out.println(title);
         }
-
+        System.out.println("test4 finished");
     }
 
     @AfterAll
     static void close() {
         driver.close();
     }
-
 }
