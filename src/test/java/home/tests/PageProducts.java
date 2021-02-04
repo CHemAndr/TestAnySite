@@ -25,7 +25,7 @@ public class PageProducts {
     //Элементы страницы
 
     //Групповой элемент со списком продуктов
-    @FindBy(xpath = "//*[@id=\"search-result-page-row\"]/div[3]/div/div[3]/div/div/div/div[3]")
+    @FindBy(xpath = "//div[@class = 'product-list-wrapper']")
     private WebElement prodList;
 
     //Элемент для задания количества продуктов на странице
@@ -45,21 +45,21 @@ public class PageProducts {
 
     //Методы работы с элементами страницы
 
-    //Количество тегов section в групповом элементе (включая вложеннные)
+    //Получить количество тегов section в групповом элементе (включая вложеннные)
     public int getProductTagsCount() {
         return (prodList.findElements(By.tagName("section")).size());
     }
 
-    //Заданное количество продуктов на странице
+    //Получить заданное количество продуктов на странице
     public int getCountOfProductsOnPage(){
         return Integer.parseInt(prodOnPage.getText());
     }
 
-    //Заданное имя в заголовке продукта
+    //Получить имя в заголовке продукта
     public String getNameInProductTitle(int i) {
         WebElement elem = prodList.findElements(By.tagName("section")).get(i);
-        String st = elem.findElement(By.xpath(".//h3/a/span")).getText();
-        return st.trim();
+        String name = elem.findElement(By.xpath(".//h3/a/span")).getText();
+        return name.trim();
     }
 
     // Соответствие названия вкладки и наличия кнопки на ней для продукта

@@ -60,7 +60,7 @@ public class TestWileySite {
 
     @Test
     public void test1(){
-      System.out.println("");
+      System.out.println();
       System.out.println("test1 started");
       pageMain.clkBtnNo();
       pageMain.clkWhoWeServ();
@@ -79,7 +79,7 @@ public class TestWileySite {
 
     @Test
     public void test2(){
-      System.out.println("");
+      System.out.println();
       System.out.println("test2 started");
       pageMain.inputSearchString(searchInputCriteria);
       Assertions.assertTrue(pageMain.checkSearchAreaLocation());
@@ -89,7 +89,7 @@ public class TestWileySite {
 
     @Test
     public void test3(){
-      System.out.println("");
+      System.out.println();
       System.out.println("test3 started" );
       pageMain.clickFindBtn();
       //Заданное количество продуктов на странице
@@ -103,7 +103,7 @@ public class TestWileySite {
           Assertions.assertEquals(searchInputCriteria,pageProducts.getNameInProductTitle(i));
       }
       // Соответствие наименования вкладки и кнопки
-      for (int i = 0; i< numTags; i+= 2) {
+      for (int i = 0; i < numTags; i+= 2) {
           Assertions.assertTrue(pageProducts.checkTabsAndButtonsForProduct(i));
       }
       System.out.println("test3 finished");
@@ -111,7 +111,7 @@ public class TestWileySite {
 
     @Test
     public void test4(){
-        System.out.println("");
+        System.out.println();
         System.out.println("test4 started");
         //Выбрать Subjects->Education
         pageProducts.clickEducation();

@@ -33,21 +33,17 @@ public class PageMain {
     @FindBy(xpath = "//*[@id=\"Level1NavNode1\"]/ul")
     private WebElement ulTagList;
 
-    //Строка поиска
+    //Строка поиска Input
     @FindBy(xpath = "//*[@id=\"js-site-search-input\"]")
     private WebElement searchString;
 
-    //Область со строкой ввода Input
-    @FindBy(xpath = "//*[@id=\"main-header-container\"]/div/div[2]/div/form/div")
-    private WebElement areaOfInput;
-
-    //Область с релевантным контентом критерия поиска
+    //Область со списком релевантных значений критерия поиска
     @FindBy(xpath = "//*[@id=\"ui-id-2\"]")
-    private WebElement areaOfRelCont;
+    private WebElement areaOfRelContent;
 
     //Кнопка поиск
-    @FindBy (xpath = "//*[@id=\"main-header-container\"]/div/div[2]/div/form/div/span/button")
-    private WebElement findBtn;
+    @FindBy(xpath = "//button[text() = 'Search']")
+    private WebElement findButton;
 
    //Методы работы с элементами страницы
 
@@ -75,21 +71,23 @@ public class PageMain {
         searchString.sendKeys(string);
     }
 
-    // Получение и сравнение параметров области с релевантными значениями
+    // Сравнить локацию строки ввода и области со списком релевантных значений
     public boolean checkSearchAreaLocation(){
-        int yCoordInputString = areaOfInput.getLocation().y; //Координата Y области со строкой ввода
-        int heightInputString = areaOfInput.getRect().getDimension().height; //Высота области со строкой ввода
-        int paddingInputString = Integer.parseInt(areaOfInput.getCssValue("padding")
-                                        .split("px")[0]); // Padding области со строкой ввода
+        int yCoordInputString = searchString.getLocation().y; //Координата Y строки ввода
+        int heightInputString = searchString.getRect().getDimension().height; //Высота строки ввода
+        int paddingInputString = Integer.parseInt(searchString.getCssValue("padding")
+                                        .split("px")[0]); // Padding строки ввода
         //Задержка на ответ по запросу
         (new WebDriverWait(driver,10))
-                .until(ExpectedConditions.elementToBeClickable(areaOfRelCont));
-        int yCoordRelArea = areaOfRelCont.getLocation().y; //Координата Y области со списком релевантных значений
+                .until(ExpectedConditions.elementToBeClickable(areaOfRelContent));
+        int yCoordRelArea = areaOfRelContent.getLocation().y; //Координата Y области со списком релевантных значений
         System.out.println("Y_input="+yCoordInputString+ " + " +" H_input="+heightInputString+ " - " +
                            " Padding_input= " + paddingInputString + "  = "+" Y_area="+yCoordRelArea);
         return (yCoordRelArea == yCoordInputString + heightInputString - paddingInputString);
     }
 
     //Нажатие на кнопку "Поиск"
-    public void clickFindBtn(){findBtn.click();}
+    public void clickFindBtn(){
+        findButton.click();
+    }
 }

@@ -33,9 +33,9 @@ public class PageEducation {
 
     //Методы работы с элементами страницы
     public String getNameEducation() {
-        String nаmеEducation = h1Education.getText();
-        System.out.println(nаmеEducation);
-        return nаmеEducation.trim();
+        String nameEducation = h1Education.getText();
+        System.out.println(nameEducation);
+        return nameEducation.trim();
     }
 
     //Количество ссылок в группе Subjects
