@@ -127,6 +127,10 @@ public class TestWileySite {
             Assertions.assertEquals(referencesInEducationBlock[i], title);
             System.out.println(title);
         }
+        //Блок Subjects расположен слева на странице
+        String valueCssParamFloat = pageEducation.getParamsBlockSubjects()[0];
+        Assertions.assertEquals("left", valueCssParamFloat);
+        System.out.println("Свойство css float: " + valueCssParamFloat);
         System.out.println("test4 finished");
     }
 

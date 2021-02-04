@@ -33,9 +33,9 @@ public class PageEducation {
 
     //Методы работы с элементами страницы
     public String getNameEducation() {
-        String nаmеEd = h1Education.getText();
-        System.out.println(nаmеEd);
-        return nаmеEd.trim();
+        String nаmеEducation = h1Education.getText();
+        System.out.println(nаmеEducation);
+        return nаmеEducation.trim();
     }
 
     //Количество ссылок в группе Subjects
@@ -45,11 +45,15 @@ public class PageEducation {
 
     //Получить имя ссылки в группе Subjects
     public  String getNameRefSubjects(int i){
-        WebElement ulli = groupSubjectsUl.findElements(By.tagName("li")).get(i);
-        String nameRef = ulli.findElement(By.xpath(".//a")).getText();
-        return nameRef.trim();
+        WebElement ulLiElement = groupSubjectsUl.findElements(By.tagName("li")).get(i);
+        String nameReference = ulLiElement.findElement(By.xpath(".//a")).getText();
+        return nameReference.trim();
     }
 
-    //Параметры расположения блока Subject
-    //public String
+    //Получить параметры расположения блока Subjects
+    public String[] getParamsBlockSubjects() {
+        String[] paramsBlockSubjects = {""};
+        paramsBlockSubjects[0] = blockSubject.getCssValue("float").trim();
+        return paramsBlockSubjects;
+    }
 }

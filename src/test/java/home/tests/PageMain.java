@@ -77,17 +77,17 @@ public class PageMain {
 
     // Получение и сравнение параметров области с релевантными значениями
     public boolean checkSearchAreaLocation(){
-        int yi = areaOfInput.getLocation().y; //Координата Y области со строкой ввода
-        int hi = areaOfInput.getRect().getDimension().height; //Высота области со строкой ввода
-        String pi = areaOfInput.getCssValue("padding"); // Padding области со строкой ввода (String)
-        int pad = Integer.parseInt(pi.split("px")[0]);// Padding области со строкой ввода (int)
-        int yr =0;//Координата Y области с релевантными значениями
+        int yCoordInputString = areaOfInput.getLocation().y; //Координата Y области со строкой ввода
+        int heightInputString = areaOfInput.getRect().getDimension().height; //Высота области со строкой ввода
+        int paddingInputString = Integer.parseInt(areaOfInput.getCssValue("padding")
+                                        .split("px")[0]); // Padding области со строкой ввода
         //Задержка на ответ по запросу
         (new WebDriverWait(driver,10))
                 .until(ExpectedConditions.elementToBeClickable(areaOfRelCont));
-        yr = areaOfRelCont.getLocation().y;//Координата Y области со списком релевантных значений
-        System.out.println("Y_input="+yi+ " + " +" H_input="+hi+ " - " +" Padding_input="+pad+ "  = "+" Y_area="+yr);
-        return (yr == yi + hi - pad);
+        int yCoordRelArea = areaOfRelCont.getLocation().y; //Координата Y области со списком релевантных значений
+        System.out.println("Y_input="+yCoordInputString+ " + " +" H_input="+heightInputString+ " - " +
+                           " Padding_input= " + paddingInputString + "  = "+" Y_area="+yCoordRelArea);
+        return (yCoordRelArea == yCoordInputString + heightInputString - paddingInputString);
     }
 
     //Нажатие на кнопку "Поиск"
