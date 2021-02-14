@@ -62,7 +62,7 @@ public class TestWileySite {
     public void test1(){
       System.out.println();
       System.out.println("test1 started");
-      pageMain.clkBtnNo();
+      //pageMain.clkBtnNo(); //всплывающее окно переехало на страницу с продуктами
       pageMain.clkWhoWeServ();
       // Сколько элементов в подменю 1 уровня (за вычетом вложенных)
       int num = pageMain.getSubMenuElementsCounts() - 1;
@@ -91,7 +91,8 @@ public class TestWileySite {
     public void test3(){
       System.out.println();
       System.out.println("test3 started" );
-      pageMain.clickFindBtn();
+      pageMain.clickFindBtn(); //всплывающее окно переехало на страницу с продуктами
+      pageMain.clkBtnNo();
       //Заданное количество продуктов на странице
       int numProdAdjust = pageProducts.getCountOfProductsOnPage();
       //Общее количество тегов section в групповом элементе

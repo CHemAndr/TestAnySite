@@ -48,7 +48,11 @@ public class PageMain {
    //Методы работы с элементами страницы
 
    //Нажать кнопку NO на форме Undetected location
-    public void clkBtnNo(){ buttonNO.click();}
+    public void clkBtnNo(){
+        (new WebDriverWait(driver,20))
+                .until(ExpectedConditions.elementToBeClickable(buttonNO));
+        buttonNO.click();
+    }
 
     //Нажать пункт меню  Who We Serve
     public void clkWhoWeServ() {whoWeServ.click();}
