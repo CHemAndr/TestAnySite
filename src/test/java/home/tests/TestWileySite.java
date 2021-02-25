@@ -40,7 +40,7 @@ public class TestWileySite {
     };
 
     @BeforeAll
-     static void setup(){
+     static void setupTest(){
         //определение пути к драйверу
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
         //создание экземпляра драйвера (открывается браузер)
@@ -76,6 +76,8 @@ public class TestWileySite {
       }
       System.out.println("test1 finished");
     }
+
+
 
     @Test
     public void test2(){
