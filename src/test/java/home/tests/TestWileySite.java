@@ -1,13 +1,11 @@
 package home.tests;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TestWileySite {
 
     public static PageMain pageMain;
@@ -58,6 +56,7 @@ public class TestWileySite {
         driver.get(ConfProperties.getProperty("startpage"));
     }
 
+    @Order(1)
     @Test
     public void test1(){
       System.out.println();
@@ -78,7 +77,7 @@ public class TestWileySite {
     }
 
 
-
+    @Order(2)
     @Test
     public void test2(){
       System.out.println();
@@ -89,6 +88,7 @@ public class TestWileySite {
       System.out.println("test2 finished");
     }
 
+    @Order(3)
     @Test
     public void test3(){
       System.out.println();
@@ -112,6 +112,7 @@ public class TestWileySite {
       System.out.println("test3 finished");
     }
 
+    @Order(4)
     @Test
     public void test4(){
         System.out.println();
